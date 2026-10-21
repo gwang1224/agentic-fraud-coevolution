@@ -1,0 +1,206 @@
+{
+  "scenario": "Synthetic Invoice Actor sends Taylor Rivera a fraudulent business invoice, leading to a successful payment.",
+  "target_outcome": "successful_fraud",
+  "outcome": "incomplete",
+  "is_complete": false,
+  "stop_reason": "validation_failed",
+  "generation_trace": [
+    {
+      "step": 1,
+      "attempt": 1,
+      "actor": "Synthetic Invoice Actor",
+      "state_before": {
+        "contacted": false,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 25000
+      },
+      "available_actions": [
+        "impersonation_message",
+        "invoice_impersonation",
+        "support_impersonation",
+        "investment_offer",
+        "marketplace_payment_request",
+        "delivery_fee_request",
+        "recruitment_fee_request",
+        "rental_deposit_request",
+        "refund_impersonation"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none",
+        "contact"
+      ],
+      "candidate": {
+        "actor": "Taylor Rivera",
+        "action": "invoice_impersonation",
+        "target": "Synthetic Invoice Actor",
+        "channel": "email",
+        "description": "Synthetic fraudulent invoice presented as an expected business payment.",
+        "effect": "contact"
+      },
+      "validation": "rejected",
+      "validation_error": "actor must be the current character."
+    },
+    {
+      "step": 1,
+      "attempt": 2,
+      "actor": "Synthetic Invoice Actor",
+      "state_before": {
+        "contacted": false,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 25000
+      },
+      "available_actions": [
+        "impersonation_message",
+        "invoice_impersonation",
+        "support_impersonation",
+        "investment_offer",
+        "marketplace_payment_request",
+        "delivery_fee_request",
+        "recruitment_fee_request",
+        "rental_deposit_request",
+        "refund_impersonation"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none",
+        "contact"
+      ],
+      "candidate": {
+        "actor": "Synthetic Invoice Actor",
+        "action": "invoice_impersonation",
+        "target": "Taylor Rivera",
+        "channel": "email",
+        "description": "Synthetic fraudulent invoice presented as an expected business payment.",
+        "effect": "contact"
+      },
+      "validation": "accepted",
+      "state_after": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 25000
+      }
+    },
+    {
+      "step": 2,
+      "attempt": 1,
+      "actor": "Taylor Rivera",
+      "state_before": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 25000
+      },
+      "available_actions": [
+        "reply_to_impersonation",
+        "accept_claimed_identity",
+        "disclose_account_information",
+        "share_verification_information",
+        "accept_false_invoice",
+        "accept_deceptive_investment",
+        "agree_to_marketplace_payment",
+        "agree_to_delivery_fee",
+        "agree_to_rental_deposit",
+        "disclose_payment_information"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none",
+        "disclose"
+      ],
+      "candidate": {
+        "actor": "Taylor Rivera",
+        "action": "accept_false_invoice",
+        "target": "Synthetic Invoice Actor",
+        "channel": "email",
+        "description": "Synthetic victim accepts a fraudulent invoice as an expected expense.",
+        "effect": "compromise"
+      },
+      "validation": "rejected",
+      "validation_error": "effect must be one of ['disclose', 'none'] for this actor."
+    },
+    {
+      "step": 2,
+      "attempt": 2,
+      "actor": "Taylor Rivera",
+      "state_before": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 25000
+      },
+      "available_actions": [
+        "reply_to_impersonation",
+        "accept_claimed_identity",
+        "disclose_account_information",
+        "share_verification_information",
+        "accept_false_invoice",
+        "accept_deceptive_investment",
+        "agree_to_marketplace_payment",
+        "agree_to_delivery_fee",
+        "agree_to_rental_deposit",
+        "disclose_payment_information"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none",
+        "disclose"
+      ],
+      "candidate": {
+        "actor": "Synthetic Invoice Actor",
+        "action": "contact",
+        "target": "Taylor Rivera",
+        "channel": "email",
+        "description": "Synthetic fraudulent invoice presented as an expected business payment.",
+        "effect": "none"
+      },
+      "validation": "rejected",
+      "validation_error": "actor must be the current character."
+    },
+    {
+      "step": 2,
+      "attempt": 3,
+      "actor": "Taylor Rivera",
+      "state_before": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 25000
+      },
+      "available_actions": [
+        "reply_to_impersonation",
+        "accept_claimed_identity",
+        "disclose_account_information",
+        "share_verification_information",
+        "accept_false_invoice",
+        "accept_deceptive_investment",
+        "agree_to_marketplace_payment",
+        "agree_to_delivery_fee",
+        "agree_to_rental_deposit",
+        "disclose_payment_information"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none",
+        "disclose"
+      ],
+      "validation": "rejected",
+      "validation_error": "Action.__init__() got an unexpected keyword argument 'is_terminal'"
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "actor": "Synthetic Invoice Actor",
+      "action": "invoice_impersonation",
+      "target": "Taylor Rivera",
+      "channel": "email",
+      "description": "Synthetic fraudulent invoice presented as an expected business payment.",
+      "effect": "contact"
+    }
+  ],
+  "validation_error": "Action.__init__() got an unexpected keyword argument 'is_terminal'"
+}

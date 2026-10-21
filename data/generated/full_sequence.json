@@ -1,0 +1,289 @@
+{
+  "scenario": null,
+  "target_outcome": "successful_fraud",
+  "outcome": "successful_fraud",
+  "is_complete": true,
+  "stop_reason": "final_transaction",
+  "participants": {
+    "fraudster": {
+      "name": "Synthetic Refund Actor",
+      "account_id": "fraudsters:Synthetic Refund Actor",
+      "acc_name": "Refund settlement",
+      "bank": "Demo Bank",
+      "balance": 200
+    },
+    "victim": {
+      "name": "Jordan Lee",
+      "account_id": "victims:Jordan Lee",
+      "acc_name": "Jordan checking",
+      "bank": "Example Community Bank",
+      "balance": 7200
+    }
+  },
+  "family": "delivery",
+  "final_balances": {
+    "victim": 6200,
+    "fraudster": 1200
+  },
+  "fallback_count": 0,
+  "generation_trace": [
+    {
+      "step": 1,
+      "attempt": 1,
+      "actor": "Synthetic Refund Actor",
+      "stage": "initial_contact",
+      "state_before": {
+        "contacted": false,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": null,
+        "stage": "initial_contact"
+      },
+      "available_actions": [
+        "delivery_fee_request",
+        "impersonation_message",
+        "investment_offer",
+        "invoice_impersonation",
+        "marketplace_payment_request",
+        "recruitment_fee_request",
+        "refund_impersonation",
+        "rental_deposit_request",
+        "support_impersonation"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "contact"
+      ],
+      "selection_source": "llm",
+      "candidate": {
+        "actor": "Synthetic Refund Actor",
+        "action": "delivery_fee_request",
+        "target": "Jordan Lee",
+        "channel": "email",
+        "description": "Synthetic false delivery fee request.",
+        "effect": "contact"
+      },
+      "validation": "accepted",
+      "state_after": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "initial_contact"
+      }
+    },
+    {
+      "step": 2,
+      "attempt": 1,
+      "actor": "Jordan Lee",
+      "stage": "response",
+      "state_before": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "response"
+      },
+      "available_actions": [
+        "agree_to_delivery_fee"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none"
+      ],
+      "selection_source": "llm",
+      "candidate": {
+        "actor": "Jordan Lee",
+        "action": "agree_to_delivery_fee",
+        "target": "Synthetic Refund Actor",
+        "channel": "email",
+        "description": "Synthetic victim agrees to pay a falsely claimed delivery fee.",
+        "effect": "none"
+      },
+      "validation": "accepted",
+      "state_after": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "response"
+      }
+    },
+    {
+      "step": 3,
+      "attempt": 1,
+      "actor": "Synthetic Refund Actor",
+      "stage": "follow_up",
+      "state_before": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "follow_up"
+      },
+      "available_actions": [
+        "request_payment_confirmation"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "none"
+      ],
+      "selection_source": "llm",
+      "candidate": {
+        "actor": "Synthetic Refund Actor",
+        "action": "request_payment_confirmation",
+        "target": "Jordan Lee",
+        "channel": "email",
+        "description": "Synthetic follow-up consistent with the established premise, requesting the fictional information needed for the proposed payment.",
+        "effect": "none"
+      },
+      "validation": "accepted",
+      "state_after": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "follow_up"
+      }
+    },
+    {
+      "step": 4,
+      "attempt": 1,
+      "actor": "Jordan Lee",
+      "stage": "disclosure",
+      "state_before": {
+        "contacted": true,
+        "disclosed": false,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "disclosure"
+      },
+      "available_actions": [
+        "disclose_account_information",
+        "disclose_payment_information",
+        "share_verification_information"
+      ],
+      "available_transactions": [],
+      "allowed_effects": [
+        "disclose"
+      ],
+      "selection_source": "llm",
+      "candidate": {
+        "actor": "Jordan Lee",
+        "action": "disclose_payment_information",
+        "target": "Synthetic Refund Actor",
+        "channel": "web",
+        "description": "Synthetic victim discloses fictional payment information before a fraudulent transfer.",
+        "effect": "disclose"
+      },
+      "validation": "accepted",
+      "state_after": {
+        "contacted": true,
+        "disclosed": true,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "disclosure"
+      }
+    },
+    {
+      "step": 5,
+      "attempt": 1,
+      "actor": "Synthetic Refund Actor",
+      "stage": "final_transaction",
+      "state_before": {
+        "contacted": true,
+        "disclosed": true,
+        "compromised": false,
+        "balance": 7200,
+        "fraudster_balance": 200,
+        "family": "delivery",
+        "stage": "final_transaction"
+      },
+      "available_actions": [],
+      "available_transactions": [
+        "fraudulent_money_transfer"
+      ],
+      "allowed_effects": [],
+      "selection_source": "llm",
+      "candidate": {
+        "source_account": "victims:Jordan Lee",
+        "payment_method": "bank transfer",
+        "destination_account": "fraudsters:Synthetic Refund Actor",
+        "amount": 1000,
+        "action": "fraudulent_money_transfer"
+      },
+      "validation": "accepted",
+      "state_after": {
+        "contacted": true,
+        "disclosed": true,
+        "compromised": false,
+        "balance": 6200,
+        "fraudster_balance": 1200,
+        "family": "delivery",
+        "stage": "complete"
+      }
+    }
+  ],
+  "steps": [
+    {
+      "type": "action",
+      "actor": "Synthetic Refund Actor",
+      "action": "delivery_fee_request",
+      "target": "Jordan Lee",
+      "channel": "email",
+      "description": "Synthetic false delivery fee request.",
+      "effect": "contact"
+    },
+    {
+      "type": "action",
+      "actor": "Jordan Lee",
+      "action": "agree_to_delivery_fee",
+      "target": "Synthetic Refund Actor",
+      "channel": "email",
+      "description": "Synthetic victim agrees to pay a falsely claimed delivery fee.",
+      "effect": "none"
+    },
+    {
+      "type": "action",
+      "actor": "Synthetic Refund Actor",
+      "action": "request_payment_confirmation",
+      "target": "Jordan Lee",
+      "channel": "email",
+      "description": "Synthetic follow-up consistent with the established premise, requesting the fictional information needed for the proposed payment.",
+      "effect": "none"
+    },
+    {
+      "type": "action",
+      "actor": "Jordan Lee",
+      "action": "disclose_payment_information",
+      "target": "Synthetic Refund Actor",
+      "channel": "web",
+      "description": "Synthetic victim discloses fictional payment information before a fraudulent transfer.",
+      "effect": "disclose"
+    },
+    {
+      "type": "transaction",
+      "source_account": "victims:Jordan Lee",
+      "payment_method": "bank transfer",
+      "destination_account": "fraudsters:Synthetic Refund Actor",
+      "amount": 1000,
+      "action": "fraudulent_money_transfer"
+    }
+  ]
+}

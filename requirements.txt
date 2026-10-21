@@ -1,0 +1,4 @@
+neo4j>=5.20,<7
+python-dotenv>=1.0,<2
+langgraph>=1.2.14,<2
+langchain-ollama>=1,<2

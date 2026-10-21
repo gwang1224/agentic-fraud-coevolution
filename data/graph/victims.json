@@ -1,0 +1,84 @@
+{
+  "victims": [
+    {
+      "name": "Alex Morgan",
+      "account": {
+        "acc_name": "Alex checking",
+        "bank": "Example Bank",
+        "balance": 5000
+      }
+    },
+    {
+      "name": "Jordan Lee",
+      "account": {
+        "acc_name": "Jordan checking",
+        "bank": "Example Community Bank",
+        "balance": 7200
+      }
+    },
+    {
+      "name": "Samira Patel",
+      "account": {
+        "acc_name": "Samira savings",
+        "bank": "Example Savings Bank",
+        "balance": 12500
+      }
+    },
+    {
+      "name": "Casey Brooks",
+      "account": {
+        "acc_name": "Casey checking",
+        "bank": "Example Digital Bank",
+        "balance": 3800
+      }
+    },
+    {
+      "name": "Taylor Rivera",
+      "account": {
+        "acc_name": "Taylor business",
+        "bank": "Example Commerce Bank",
+        "balance": 25000
+      }
+    },
+    {
+      "name": "Morgan Chen",
+      "account": {
+        "acc_name": "Morgan savings",
+        "bank": "Example Savings Bank",
+        "balance": 18000
+      }
+    },
+    {
+      "name": "Jamie Okafor",
+      "account": {
+        "acc_name": "Jamie checking",
+        "bank": "Example Community Bank",
+        "balance": 6400
+      }
+    },
+    {
+      "name": "Riley Singh",
+      "account": {
+        "acc_name": "Riley checking",
+        "bank": "Example Digital Bank",
+        "balance": 9200
+      }
+    },
+    {
+      "name": "Avery Thompson",
+      "account": {
+        "acc_name": "Avery savings",
+        "bank": "Example Bank",
+        "balance": 15000
+      }
+    },
+    {
+      "name": "Cameron Diaz-Smith",
+      "account": {
+        "acc_name": "Cameron business",
+        "bank": "Example Commerce Bank",
+        "balance": 32000
+      }
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "victim_actions": [
+    {
+      "name": "reply_to_impersonation",
+      "common_channels": [
+        "sms",
+        "email"
+      ],
+      "description": "Synthetic victim responds while believing the sender is legitimate.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "bank_impersonation"
+    },
+    {
+      "name": "accept_claimed_identity",
+      "common_channels": [
+        "phone",
+        "chat"
+      ],
+      "description": "Synthetic victim accepts the claimed identity of the contacting actor.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "support"
+    },
+    {
+      "name": "disclose_account_information",
+      "common_channels": [
+        "chat",
+        "web"
+      ],
+      "description": "Synthetic victim discloses fictional account information; no real credentials.",
+      "stage": "disclosure",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "generic"
+    },
+    {
+      "name": "share_verification_information",
+      "common_channels": [
+        "phone",
+        "sms"
+      ],
+      "description": "Synthetic victim shares fictional verification information without actual secrets.",
+      "stage": "disclosure",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "generic"
+    },
+    {
+      "name": "accept_false_invoice",
+      "common_channels": [
+        "email"
+      ],
+      "description": "Synthetic victim accepts a fraudulent invoice as an expected expense.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "invoice"
+    },
+    {
+      "name": "accept_deceptive_investment",
+      "common_channels": [
+        "email",
+        "chat"
+      ],
+      "description": "Synthetic victim accepts the fictional deceptive investment premise.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "investment"
+    },
+    {
+      "name": "agree_to_marketplace_payment",
+      "common_channels": [
+        "marketplace_chat"
+      ],
+      "description": "Synthetic victim agrees to the fraudulent marketplace payment request.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "marketplace"
+    },
+    {
+      "name": "agree_to_delivery_fee",
+      "common_channels": [
+        "sms",
+        "email"
+      ],
+      "description": "Synthetic victim agrees to pay a falsely claimed delivery fee.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "delivery"
+    },
+    {
+      "name": "agree_to_rental_deposit",
+      "common_channels": [
+        "email",
+        "marketplace_chat"
+      ],
+      "description": "Synthetic victim agrees to the fraudulent rental deposit request.",
+      "stage": "response",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "rental"
+    },
+    {
+      "name": "disclose_payment_information",
+      "common_channels": [
+        "web",
+        "chat"
+      ],
+      "description": "Synthetic victim discloses fictional payment information before a fraudulent transfer.",
+      "stage": "disclosure",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false,
+      "family": "generic"
+    },
+    {
+      "name": "agree_to_recruitment_fee",
+      "common_channels": [
+        "email",
+        "chat"
+      ],
+      "description": "Synthetic victim accepts the fictional recruitment fee premise.",
+      "stage": "response",
+      "family": "recruitment",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false
+    },
+    {
+      "name": "accept_refund_claim",
+      "common_channels": [
+        "phone",
+        "email"
+      ],
+      "description": "Synthetic victim accepts the fictional refund claim.",
+      "stage": "response",
+      "family": "refund",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false
+    },
+    {
+      "name": "acknowledge_account_update",
+      "common_channels": [
+        "sms",
+        "email",
+        "phone",
+        "chat",
+        "marketplace_chat",
+        "web"
+      ],
+      "description": "Synthetic victim acknowledges the claimed account update within the established fictional premise.",
+      "stage": "acknowledgment",
+      "family": "generic",
+      "initiator": "victim",
+      "target": "fraudster",
+      "is_terminal": false
+    }
+  ]
+}

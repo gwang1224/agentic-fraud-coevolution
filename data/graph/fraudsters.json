@@ -1,0 +1,84 @@
+{
+  "fraudsters": [
+    {
+      "name": "Synthetic Fraud Actor",
+      "account": {
+        "acc_name": "Synthetic recipient",
+        "bank": "Demo Bank",
+        "balance": 100
+      }
+    },
+    {
+      "name": "Synthetic Invoice Actor",
+      "account": {
+        "acc_name": "Invoice clearing",
+        "bank": "Demo Commerce Bank",
+        "balance": 250
+      }
+    },
+    {
+      "name": "Synthetic Support Actor",
+      "account": {
+        "acc_name": "Support settlement",
+        "bank": "Demo Digital Bank",
+        "balance": 150
+      }
+    },
+    {
+      "name": "Synthetic Investment Actor",
+      "account": {
+        "acc_name": "Investment settlement",
+        "bank": "Demo Capital Bank",
+        "balance": 800
+      }
+    },
+    {
+      "name": "Synthetic Marketplace Actor",
+      "account": {
+        "acc_name": "Marketplace receipts",
+        "bank": "Demo Commerce Bank",
+        "balance": 300
+      }
+    },
+    {
+      "name": "Synthetic Delivery Actor",
+      "account": {
+        "acc_name": "Delivery settlement",
+        "bank": "Demo Regional Bank",
+        "balance": 120
+      }
+    },
+    {
+      "name": "Synthetic Recruitment Actor",
+      "account": {
+        "acc_name": "Recruitment receipts",
+        "bank": "Demo Digital Bank",
+        "balance": 450
+      }
+    },
+    {
+      "name": "Synthetic Rental Actor",
+      "account": {
+        "acc_name": "Rental deposits",
+        "bank": "Demo Regional Bank",
+        "balance": 600
+      }
+    },
+    {
+      "name": "Synthetic Refund Actor",
+      "account": {
+        "acc_name": "Refund settlement",
+        "bank": "Demo Bank",
+        "balance": 200
+      }
+    },
+    {
+      "name": "Synthetic Relationship Actor",
+      "account": {
+        "acc_name": "Personal receipts",
+        "bank": "Demo Capital Bank",
+        "balance": 350
+      }
+    }
+  ]
+}

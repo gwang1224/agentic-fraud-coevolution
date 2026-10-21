@@ -1,0 +1,229 @@
+{
+  "fraudster_actions": [
+    {
+      "name": "impersonation_message",
+      "common_channels": [
+        "sms",
+        "email"
+      ],
+      "description": "Synthetic bank impersonation contact for simulation.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": false,
+      "family": "bank_impersonation"
+    },
+    {
+      "name": "invoice_impersonation",
+      "common_channels": [
+        "email"
+      ],
+      "description": "Synthetic fraudulent invoice presented as an expected business payment.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "invoice"
+    },
+    {
+      "name": "support_impersonation",
+      "common_channels": [
+        "phone",
+        "chat"
+      ],
+      "description": "Synthetic contact from an actor posing as customer support.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "support"
+    },
+    {
+      "name": "investment_offer",
+      "common_channels": [
+        "email",
+        "chat"
+      ],
+      "description": "Synthetic deceptive investment opportunity presented to the victim.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "investment"
+    },
+    {
+      "name": "marketplace_payment_request",
+      "common_channels": [
+        "marketplace_chat"
+      ],
+      "description": "Synthetic request for a fraudulent payment during a fictional purchase.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "marketplace"
+    },
+    {
+      "name": "delivery_fee_request",
+      "common_channels": [
+        "sms",
+        "email"
+      ],
+      "description": "Synthetic false delivery fee request.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "delivery"
+    },
+    {
+      "name": "recruitment_fee_request",
+      "common_channels": [
+        "email",
+        "chat"
+      ],
+      "description": "Synthetic request for an illegitimate recruitment fee.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "recruitment"
+    },
+    {
+      "name": "rental_deposit_request",
+      "common_channels": [
+        "email",
+        "marketplace_chat"
+      ],
+      "description": "Synthetic deposit request for a misrepresented rental.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "rental"
+    },
+    {
+      "name": "refund_impersonation",
+      "common_channels": [
+        "phone",
+        "email"
+      ],
+      "description": "Synthetic false refund claim used to initiate contact.",
+      "stage": "initial_contact",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": false,
+      "family": "refund"
+    },
+    {
+      "name": "request_payment_confirmation",
+      "common_channels": [
+        "sms",
+        "email",
+        "phone",
+        "chat",
+        "marketplace_chat"
+      ],
+      "description": "Synthetic follow-up consistent with the established premise, requesting the fictional information needed for the proposed payment.",
+      "stage": "follow_up",
+      "family": "generic",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": false
+    },
+    {
+      "name": "account_compromise",
+      "common_channels": [
+        "web"
+      ],
+      "description": "Synthetic account access following prior disclosure; no operational details.",
+      "stage": "account_access",
+      "initiator": "fraudster",
+      "target": "victim",
+      "is_terminal": false,
+      "compromises_account": true,
+      "family": "generic"
+    },
+    {
+      "name": "fraudulent_money_transfer",
+      "common_channels": [
+        "bank_app",
+        "web"
+      ],
+      "description": "Synthetic completed transfer from the victim account to the fraudster account.",
+      "stage": "final_transaction",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": true,
+      "family": "generic"
+    },
+    {
+      "name": "fraudulent_invoice_payment",
+      "common_channels": [
+        "bank_app",
+        "web"
+      ],
+      "description": "Synthetic completed payment of a fraudulent invoice to the fraudster account.",
+      "stage": "final_transaction",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": true,
+      "family": "invoice"
+    },
+    {
+      "name": "fraudulent_investment_payment",
+      "common_channels": [
+        "bank_app",
+        "web"
+      ],
+      "description": "Synthetic completed transfer to the fraudster for a fictitious investment.",
+      "stage": "final_transaction",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": true,
+      "family": "investment"
+    },
+    {
+      "name": "fraudulent_rental_deposit",
+      "common_channels": [
+        "bank_app",
+        "web"
+      ],
+      "description": "Synthetic completed rental deposit transfer to the fraudster account.",
+      "stage": "final_transaction",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": true,
+      "family": "rental"
+    },
+    {
+      "name": "compromised_account_transfer",
+      "common_channels": [
+        "bank_app",
+        "web"
+      ],
+      "description": "Synthetic completed unauthorized transfer from a previously compromised victim account to the fraudster account.",
+      "stage": "final_transaction",
+      "initiator": "fraudster",
+      "target": "victim",
+      "compromises_account": false,
+      "is_terminal": true,
+      "requires_compromise": true,
+      "family": "generic"
+    }
+  ]
+}
