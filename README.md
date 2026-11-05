@@ -90,7 +90,7 @@ from the selected victim account to the selected fraudster account.
 2. Snapshot both participants' connected `PERFORMS` templates from Neo4j.
 3. Preflight complete, compatible paths before asking the model for any choices.
 4. Let the model choose only among templates for the current stage and family.
-5. Validate and advance the stage. Replay the accepted sequence before saving it.
+5. Validate and advance each stage, then check completion and the step limit before saving.
 
 The default path has five steps:
 
@@ -138,10 +138,100 @@ With Neo4j and Ollama running, and the model named by `OLLAMA_MODEL` installed:
 python generator_agent.py --output data/generated/full_sequence.json
 ```
 
-No scenario is required. An optional positional scenario can guide the first
-contact choice among valid templates. The output includes `steps`, participants,
+The model chooses the first contact from valid templates. The output includes `steps`, participants,
 the chosen family, final balances, fallback count, and a `generation_trace` of
 accepted/rejected candidates and state changes. Successful output always has
 `outcome: "successful_fraud"` and `stop_reason: "final_transaction"`.
 
 Driver reference: [Neo4j managed transactions](https://neo4j.com/docs/python-manual/current/transactions/).
+
+## Detect fraud in a sequence
+
+`detector_agent.py` uses LangChain's `create_agent` with Ollama. The agent calls
+the read-only `read_sequence` tool, examines the observed events, and returns a
+validated decision with a short summary and evidence referencing one-based step
+numbers. Its instructions are in `DETECTOR_PROMPT` in `prompts.py`.
+
+```sh
+python -m pip install -r requirements.txt
+python detector_agent.py data/generated/full_sequence.json --output data/detected/full_sequence.json
+```
+
+Without arguments, input defaults to `data/generated/sequence.json` and output to
+`data/detected/sequence.json`. Existing detector output at the chosen path is
+overwritten only after a valid decision. The input sequence is never overwritten.
+Neo4j is not required for detection.
+
+The detector uses `DETECTOR_MODEL` when set, otherwise `OLLAMA_MODEL`, defaulting
+to `llama3.2`. `OLLAMA_BASE_URL` selects the Ollama server. The installed model must
+support tool calling. Unlike the generator's JSON-only calls, this agent needs
+native tool calls for both reading events and returning structured output.
+
+Possible classifications:
+
+| Classification | Meaning |
+|---|---|
+| `successful_fraud` | A fraudulent attempt followed by an observed fraudulent payment |
+| `caught_fraud` | A fraudulent attempt stopped before its payment |
+| `normal` | Observations support a legitimate interaction/payment |
+| `uncertain` | Insufficient or conflicting evidence to establish another outcome |
+
+Example output fields:
+
+```json
+{
+  "classification": "successful_fraud",
+  "summary": "A deceptive payment request was followed by a transfer.",
+  "evidence": [
+    {"step": 1, "explanation": "The observed request misrepresents its purpose."},
+    {"step": 5, "explanation": "The sequence records the subsequent payment."}
+  ],
+  "tool_calls": ["read_sequence"]
+}
+```
+
+The model sees descriptions, channels, payments, and neutral participant aliases.
+Generator outcome labels, family/stage metadata, action names, effects, and audit
+traces are excluded. Account ownership is retained through neutral aliases when
+participant metadata provides it. This reduces obvious label leakage, but current
+synthetic descriptions still explicitly mention deception/fraud: they are not an
+unbiased real-world benchmark. The tests verify agent execution and validation,
+not the model's detection accuracy. Include normal and intercepted examples in a
+separate evaluation set before comparing detector performance.
+
+The saved explanation is a concise decision summary, not private chain-of-thought.
+The agent has a bounded execution loop; provider failures, missing decisions, and
+invalid evidence fail explicitly instead of fabricating a classification.
+
+Run detector tests without external services:
+
+```sh
+python -m unittest discover -s tests -p 'test_detector_agent.py' -v
+```
+
+## Start prompt-feedback coevolution
+
+With Neo4j populated and Ollama running, run a bounded experiment:
+
+```sh
+.venv/bin/python coevolution.py --rounds 3
+```
+
+Each round generates a complete sequence, runs the detector, compares its decision
+with the simulator's outcome, and supplies the last three completed rounds as
+feedback to the next round's prompts. The generator receives prior detector
+summaries and evidence to vary its fictional examples. The detector receives
+prior observations and expected labels; current-round labels remain hidden from
+it. Template constraints and sequence validation still apply. This starter adapts
+prompt context, not model weights, and does not modify Neo4j.
+
+Runs create a new directory under `data/coevolution/` with per-round
+`sequence.json`, `detection.json`, and `feedback.json`, plus a run-level
+`report.json`. Use `--output-dir PATH` to choose a new directory; existing run
+directories are never reused. A failed round stops the run and records the error
+without counting it as a missed detection. Fallback steps are counted explicitly.
+
+The report's successful-fraud recall is a training statistic on fraud-only
+examples, not overall accuracy or evidence of improvement. A fixed held-out set
+with legitimate and intercepted interactions is needed to evaluate adaptation
+and false positives independently.

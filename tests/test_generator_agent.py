@@ -86,7 +86,7 @@ class GeneratorTests(unittest.TestCase):
                                     max_steps=max_steps)
 
     def apply(self, state, name, effect, actor=None):
-        scope_available_actions(state, FRAUDSTER)
+        scope_available_actions(state)
         actor = actor or state['current_character']
         target = VICTIM['name'] if actor == FRAUDSTER['name'] else FRAUDSTER['name']
         step = Action(actor, name, target, 'sms', 'Synthetic simulation step', effect)
@@ -97,7 +97,7 @@ class GeneratorTests(unittest.TestCase):
         state = self.initial_state()
         self.apply(state, 'contact', 'contact')
         self.apply(state, 'share', 'disclose')
-        scope_available_actions(state, FRAUDSTER)
+        scope_available_actions(state)
         return state
 
     def run_sequence(self, payloads, rows=None, **kwargs):
@@ -210,7 +210,7 @@ class GeneratorTests(unittest.TestCase):
     def test_only_current_stage_is_available_and_stale_lists_cannot_bypass_it(self):
         state = self.initial_state(full_templates())
         self.apply(state, 'investment_offer', 'contact')
-        scope_available_actions(state, FRAUDSTER)
+        scope_available_actions(state)
         self.assertEqual([row['action'] for row in state['available_actions']],
                          ['investment_reply'])
         # A stale contact template must not allow another initial contact.
@@ -224,10 +224,10 @@ class GeneratorTests(unittest.TestCase):
     def test_response_effect_and_fixed_participants_are_derived_in_python(self):
         state = self.initial_state(full_templates())
         self.apply(state, 'contact', 'contact')
-        scope_available_actions(state, FRAUDSTER)
+        scope_available_actions(state)
         model = FakeModel([choose('bank_reply', effect='disclose',
                                   actor='invented actor', target='invented target')])
-        step = generate_next_action(state, None, FRAUDSTER, VICTIM, model)
+        step = generate_next_action(state, FRAUDSTER, VICTIM, model)
         self.assertEqual(step.effect, 'none')
         self.assertEqual((step.actor, step.target), (VICTIM['name'], FRAUDSTER['name']))
         validate_step(step, state, FRAUDSTER, VICTIM)
@@ -236,7 +236,7 @@ class GeneratorTests(unittest.TestCase):
 
     def test_model_cannot_override_transfer_accounts(self):
         state = self.transfer_state()
-        step = generate_next_action(state, None, FRAUDSTER, VICTIM, FakeModel([
+        step = generate_next_action(state, FRAUDSTER, VICTIM, FakeModel([
             transfer(source_account='wrong', destination_account='wrong')]))
         self.assertEqual(step.source_account, VICTIM['account_id'])
         self.assertEqual(step.destination_account, FRAUDSTER['account_id'])
@@ -251,7 +251,7 @@ class GeneratorTests(unittest.TestCase):
         response = SimpleNamespace(content=json.dumps(choose('investment_reply')))
         with patch.object(ChatOllama, 'bind') as bind:
             bind.return_value.invoke.return_value = response
-            step = generate_next_action(state, None, FRAUDSTER, VICTIM, model)
+            step = generate_next_action(state, FRAUDSTER, VICTIM, model)
         branches = bind.call_args.kwargs['format']['anyOf']
         self.assertEqual(len(branches), 1)
         self.assertEqual(branches[0]['properties']['action']['enum'], ['investment_reply'])
@@ -267,7 +267,7 @@ class GeneratorTests(unittest.TestCase):
         response = SimpleNamespace(content=json.dumps(transfer()))
         with patch.object(ChatOllama, 'bind') as bind:
             bind.return_value.invoke.return_value = response
-            generate_next_action(state, None, FRAUDSTER, VICTIM, model)
+            generate_next_action(state, FRAUDSTER, VICTIM, model)
         schema = bind.call_args.kwargs['format']
         self.assertEqual(set(schema['properties']), {'action', 'payment_method', 'amount'})
         self.assertEqual(schema['properties']['action']['enum'], ['transfer'])
@@ -345,10 +345,10 @@ class GeneratorTests(unittest.TestCase):
         self.assertEqual(len(rejected), 9)
         self.assertTrue(all('ConnectionError' in entry['validation_error'] for entry in rejected))
 
-    def test_no_scenario_is_required(self):
+    def test_scenario_is_absent_from_output_and_prompt(self):
         result, model, _ = self.run_sequence([
             choose('contact'), choose('share'), transfer()])
-        self.assertIsNone(result['scenario'])
+        self.assertNotIn('scenario', result)
         self.assertNotIn('"scenario":', model.prompts[0])
         self.assertEqual(result['outcome'], 'successful_fraud')
 
@@ -388,10 +388,10 @@ class GeneratorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.initial_state(rows)
 
-    def test_initialization_rejects_missing_family_metadata(self):
+    def test_initialization_requires_imported_family_metadata(self):
         rows = minimal_templates()
         del rows[True][0]['family']
-        with self.assertRaisesRegex(ValueError, 'family'):
+        with self.assertRaisesRegex(KeyError, 'family'):
             self.initial_state(rows)
 
     def test_contradictory_compromise_metadata_fails_before_model_or_output(self):
@@ -421,7 +421,7 @@ class GeneratorTests(unittest.TestCase):
         rows[True].append(template('dead_end_contact', 'initial_contact', 'unrelated'))
         rows[True][1]['family'] = 'bank'
         state = self.initial_state(rows)
-        scope_available_actions(state, FRAUDSTER)
+        scope_available_actions(state)
         self.assertEqual([row['action'] for row in state['available_actions']], ['contact'])
 
     def test_compromise_path_requires_both_access_and_acknowledgment_templates(self):

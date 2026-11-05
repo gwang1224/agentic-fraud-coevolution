@@ -22,7 +22,7 @@ def main():
     state = g.initialize_state(fraudster, victim)
     print_state("Initial state", state)
 
-    g.scope_available_actions(state, fraudster)
+    g.scope_available_actions(state)
     print_state("After scoping actions", state)
 
     #Enable this section when ready to test an Ollama response.
@@ -33,7 +33,7 @@ def main():
         format="json",
     )
     step = g.generate_next_action(
-        state, None, fraudster, victim, model
+        state, fraudster, victim, model
     )
     print("Candidate:")
     pprint(step)
